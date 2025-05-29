@@ -10,8 +10,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "event_candidates")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventCandidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,20 +37,4 @@ public class EventCandidate {
 
     @Column(name = "end_time")
     private Time endTime;
-
-    // Getter / Setter
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public Integer getEventId() { return eventId; }
-    public void setEventId(Integer eventId) { this.eventId = eventId; }
-
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
-
-    public Time getStartTime() { return startTime; }
-    public void setStartTime(Time startTime) { this.startTime = startTime; }
-
-    public Time getEndTime() { return endTime; }
-    public void setEndTime(Time endTime) { this.endTime = endTime; }
 }

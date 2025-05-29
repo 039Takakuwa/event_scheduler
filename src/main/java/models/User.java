@@ -11,14 +11,20 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @NamedQueries({
-    @NamedQuery(
-            name = "getAllUsers",
-            query = "SELECT u FROM User AS u ORDER BY u.id DESC"
-            )
+        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User AS u ORDER BY u.id DESC")
 })
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name = "id")
@@ -28,52 +34,13 @@ public class User {
     @Column(name = "username", length = 50, nullable = false)
     private String username;
 
-    @Column(name = "email",length = 100,  nullable = false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "password_hash",length = 255,  nullable = false)
+    @Column(name = "password_hash", length = 255, nullable = false)
     private String password_hash;
-    
-    @Column(name= "created_at", nullable = false)
+
+    @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPasswordHash() {
-        return password_hash;
-    }
-
-    public void setPasswordHash(String password_hash) {
-        this.password_hash = password_hash;
-    }
-
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
 }

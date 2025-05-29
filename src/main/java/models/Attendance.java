@@ -8,10 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "attendances", uniqueConstraints = {
-    @UniqueConstraint(columnNames = { "user_id", "event_id", "candidate_id" })
+        @UniqueConstraint(columnNames = { "user_id", "event_id", "candidate_id" })
 })
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,23 +40,4 @@ public class Attendance {
 
     @Column(columnDefinition = "TEXT")
     private String comment;
-
-    // Getter / Setter
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public Integer getUserId() { return userId; }
-    public void setUserId(Integer userId) { this.userId = userId; }
-
-    public Integer getEventId() { return eventId; }
-    public void setEventId(Integer eventId) { this.eventId = eventId; }
-
-    public Integer getCandidateId() { return candidateId; }
-    public void setCandidateId(Integer candidateId) { this.candidateId = candidateId; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
 }

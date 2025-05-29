@@ -7,8 +7,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "answers")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +31,4 @@ public class Answer {
 
     @Column(name = "answer_text", columnDefinition = "TEXT", nullable = false)
     private String answerText;
-
-    // Getter / Setter
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public Integer getUserId() { return userId; }
-    public void setUserId(Integer userId) { this.userId = userId; }
-
-    public Integer getQuestionId() { return questionId; }
-    public void setQuestionId(Integer questionId) { this.questionId = questionId; }
-
-    public String getAnswerText() { return answerText; }
-    public void setAnswerText(String answerText) { this.answerText = answerText; }
 }
