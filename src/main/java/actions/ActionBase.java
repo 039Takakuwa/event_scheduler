@@ -87,6 +87,7 @@ public abstract class ActionBase {
 
         //jspファイルの相対パスを作成
         String forward = String.format("/WEB-INF/views/%s.jsp", target.getValue());
+        System.out.println("【DEBUG】forwardPath = " + forward);
         RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
 
         //jspファイルの呼び出し
@@ -202,6 +203,10 @@ public abstract class ActionBase {
      */
     protected <V> void putRequestScope(AttributeConst key, V value) {
         request.setAttribute(key.getValue(), value);
+    }
+    
+    protected void putRequestScope(String key, Object value) {
+        request.setAttribute(key, value);
     }
 
     /**

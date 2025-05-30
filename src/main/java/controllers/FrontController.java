@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import actions.ActionBase;
 import actions.UnknownAction;
+import constants.ForwardConst;
 
 /**
  * フロントコントローラ
@@ -63,7 +64,7 @@ public class FrontController extends HttpServlet {
         try {
 
             //リクエストからパラメータ"action"の値を取得 (例:"Employee"、"Report")
-            String actionString = request.getParameter("command");
+            String actionString = request.getParameter(ForwardConst.ACT.getValue());
 
             //該当するActionオブジェクトを作成 (例:リクエストからパラメータ action=Employee の場合、actions.EmployeeActionオブジェクト)
             type = Class.forName(String.format("actions.%sAction", actionString));

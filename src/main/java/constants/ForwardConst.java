@@ -8,10 +8,7 @@ public enum ForwardConst {
 
     //action
     ACT("action"),
-    ACT_TOP("Top"),
-    ACT_EMP("Employee"),
-    ACT_REP("Report"),
-    ACT_AUTH("Auth"),
+    ACT_USR("User"),
 
     //command
     CMD("command"),
@@ -29,16 +26,10 @@ public enum ForwardConst {
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
-    FW_TOP_INDEX("topPage/index"),
-    FW_LOGIN("login/login"),
-    FW_EMP_INDEX("employees/index"),
-    FW_EMP_SHOW("employees/show"),
-    FW_EMP_NEW("employees/new"),
-    FW_EMP_EDIT("employees/edit"),
-    FW_REP_INDEX("reports/index"),
-    FW_REP_SHOW("reports/show"),
-    FW_REP_NEW("reports/new"),
-    FW_REP_EDIT("reports/edit");
+    FW_USER_INDEX("users/index"),
+    FW_USER_SHOW("users/show"),
+    FW_USER_NEW("users/new"),
+    FW_USER_EDIT("users/edit");
 
     /**
      * 文字列
