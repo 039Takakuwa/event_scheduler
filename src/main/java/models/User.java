@@ -18,7 +18,8 @@ import lombok.Setter;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User AS u ORDER BY u.id DESC")
+        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User AS u ORDER BY u.id DESC"),
+        @NamedQuery(name = "User.getByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username AND u.password_hash = :password_hash")
 })
 @Table(name = "users")
 @Getter

@@ -18,6 +18,11 @@ public class UserAction extends ActionBase {
 
     @Override
     public void process() throws ServletException, IOException {
+        if (getSessionScope(AttributeConst.LOGIN_USER) == null) {
+            redirect(ForwardConst.ACT_LOG, ForwardConst.CMD_SHOW);
+            return;
+        }
+
         service = new UserService();
 
         // コマンドを実行
@@ -77,13 +82,12 @@ public class UserAction extends ActionBase {
                 getRequestParam(AttributeConst.USER_NAME),
                 getRequestParam(AttributeConst.USER_EMAIL),
                 getRequestParam(AttributeConst.USER_PASSWORD),
-                new Timestamp(System.currentTimeMillis())
-        );
+                new Timestamp(System.currentTimeMillis()));
 
         service.create(uv);
-        
+
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
-        
+
         redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
     }
 

@@ -54,5 +54,18 @@ public class UserService extends ServiceBase {
         }
         em.getTransaction().commit();
     }
+    
+    public User findByUsernameAndPassword(String username, String password_hash) {
+        User user = null;
+        try {
+            user = em.createNamedQuery("User.getByUsernameAndPassword", User.class)
+                    .setParameter("username", username)
+                    .setParameter("password_hash", password_hash)
+                    .getSingleResult();
+        } catch (Exception e) {
+            // 該当ユーザーなし
+        }
+        return user;
+    }
 }
 

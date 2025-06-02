@@ -24,7 +24,9 @@ public enum AttributeConst {
     USER_LIST("user_list"),
     USER_NAME("username"),
     USER_EMAIL("email"),
-    USER_PASSWORD("password");
+    USER_PASSWORD("password"),
+    LOGIN_USER("login_user");
+
 
     private final String text;
     private final Integer i;

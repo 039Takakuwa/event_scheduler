@@ -9,6 +9,7 @@ public enum ForwardConst {
     //action
     ACT("action"),
     ACT_USR("User"),
+    ACT_LOG("Log"),
 
     //command
     CMD("command"),
@@ -29,8 +30,10 @@ public enum ForwardConst {
     FW_USER_INDEX("users/index"),
     FW_USER_SHOW("users/show"),
     FW_USER_NEW("users/new"),
-    FW_USER_EDIT("users/edit");
+    FW_USER_EDIT("users/edit"),
+    FW_LOGIN("login/show");
 
+    
     /**
      * 文字列
      */
