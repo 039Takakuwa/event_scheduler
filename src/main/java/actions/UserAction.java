@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
 import services.UserService;
 
 public class UserAction extends ActionBase {
@@ -80,6 +81,9 @@ public class UserAction extends ActionBase {
         );
 
         service.create(uv);
+        
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+        
         redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
     }
 
@@ -104,10 +108,6 @@ public class UserAction extends ActionBase {
      * 更新処理
      */
     public void update() throws ServletException, IOException {
-        if (!checkToken()) {
-            return;
-        }
-
         int id = toNumber(getRequestParam(AttributeConst.USER_ID));
         UserView uv = service.findOne(id);
 
@@ -128,10 +128,6 @@ public class UserAction extends ActionBase {
      * ユーザー削除
      */
     public void destroy() throws ServletException, IOException {
-        if (!checkToken()) {
-            return;
-        }
-
         int id = toNumber(getRequestParam(AttributeConst.USER_ID));
         service.destroy(id);
         redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
