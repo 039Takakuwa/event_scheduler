@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import jakarta.servlet.ServletException;
 
+import actions.views.UserConverter;
+import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import models.User;
@@ -49,7 +51,9 @@ public class LogAction extends ActionBase {
 
         if (u != null) {
             System.out.println("ログイン成功: " + u.getUsername());
-            putSessionScope(AttributeConst.LOGIN_USER, u);
+            
+            UserView uv = UserConverter.toView(u);
+            putSessionScope(AttributeConst.LOGIN_USER, uv);
             redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
         } else {
             System.out.println("ログイン失敗");

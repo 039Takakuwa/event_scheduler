@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import actions.views.EventView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
 import services.EventService;
 
 public class EventAction extends ActionBase {
@@ -17,6 +18,10 @@ public class EventAction extends ActionBase {
 
     @Override
     public void process() throws ServletException, IOException {
+        if (getSessionScope(AttributeConst.LOGIN_USER) == null) {
+            redirect(ForwardConst.ACT_LOG, ForwardConst.CMD_SHOW);
+            return;
+        }
         service = new EventService();
 
         // メソッドを実行
@@ -54,10 +59,6 @@ public class EventAction extends ActionBase {
      * イベントの登録処理
      */
     public void create() throws ServletException, IOException {
-        if (!checkToken()) {
-            return;
-        }
-
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         EventView ev = new EventView(
@@ -68,12 +69,12 @@ public class EventAction extends ActionBase {
                 now);
 
         service.create(ev);
-        
-        putSessionScope(AttributeConst.FLUSH, "イベントを登録しました。");
+
+        putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
         
         redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_INDEX);
     }
-    
+
     /**
      * イベント詳細画面の表示
      */
@@ -88,7 +89,7 @@ public class EventAction extends ActionBase {
         putRequestScope(AttributeConst.EVENT, ev);
         forward(ForwardConst.FW_EVENT_SHOW);
     }
-    
+
     /**
      * 編集画面の表示
      */
@@ -110,10 +111,6 @@ public class EventAction extends ActionBase {
      * イベント更新処理
      */
     public void update() throws ServletException, IOException {
-        if (!checkToken()) {
-            return;
-        }
-
         Integer id = toNumber(getRequestParam(AttributeConst.ID));
         EventView ev = service.findOne(id);
 
@@ -136,10 +133,6 @@ public class EventAction extends ActionBase {
      * イベント削除処理（完全削除）
      */
     public void destroy() throws ServletException, IOException {
-        if (!checkToken()) {
-            return;
-        }
-
         Integer id = toNumber(getRequestParam(AttributeConst.ID));
         service.delete(id);
 
@@ -147,6 +140,5 @@ public class EventAction extends ActionBase {
 
         redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_INDEX);
     }
-
 
 }

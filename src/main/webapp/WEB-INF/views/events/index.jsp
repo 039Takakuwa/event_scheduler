@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -39,7 +40,8 @@
         </table>
 
         <p>
-            <a href="<c:url value='?action=${actEvn}&command=${commNew}' />">新規イベントの作成</a>
+            <a href="<c:url value='?action=${actEvn}&command=${commNew}' />">新規イベントの作成</a><br>
+            <a href="<c:url value='?action=User&command=${commIdx}' />">ユーザー一覧に戻る</a>
         </p>
     </c:param>
 </c:import>

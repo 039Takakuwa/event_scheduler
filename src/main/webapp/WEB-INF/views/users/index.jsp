@@ -14,6 +14,9 @@ System.out.println("【DEBUG】index.jsp に入りました");
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="actLog" value="${ForwardConst.ACT_LOG.getValue()}" />
 <c:set var="commLogout" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
+<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
+
+<c:set var="actEvn" value="${ForwardConst.ACT_EVENT.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -59,7 +62,9 @@ System.out.println("【DEBUG】index.jsp に入りました");
         </table>
 
         <p>
-            <a href="<c:url value='?action=${actUsr}&command=${commNew}' />">新規ユーザーの登録</a>
+            <a href="<c:url value='?action=${actUsr}&command=${commNew}' />">新規ユーザーの登録</a><br>
+            <a href="<c:url value='?action=${actEvn}&command=${commNew}' />">新規イベントの登録</a><br>
+            <a href="<c:url value='?action=${actEvn}&command=${commIdx}' />">イベント一覧</a>
         </p>
     </c:param>
 </c:import>

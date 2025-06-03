@@ -31,6 +31,7 @@ public enum AttributeConst {
     //イベント関連
     EVENTS("events"),             // イベント一覧
     EVENT("event"),               // 単一イベント
+    EVENT_ID("id"),
     EVENT_TITLE("title"),         // イベントタイトル
     EVENT_DESCRIPTION("description"), // イベント説明
     EVENT_ORGANIZER_ID("organizerId"), // イベント主催者ID

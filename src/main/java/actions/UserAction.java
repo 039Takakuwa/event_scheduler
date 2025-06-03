@@ -77,12 +77,14 @@ public class UserAction extends ActionBase {
      * ユーザー新規作成
      */
     public void create() throws ServletException, IOException {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        
         UserView uv = new UserView(
                 null,
                 getRequestParam(AttributeConst.USER_NAME),
                 getRequestParam(AttributeConst.USER_EMAIL),
                 getRequestParam(AttributeConst.USER_PASSWORD),
-                new Timestamp(System.currentTimeMillis()));
+                now);
 
         service.create(uv);
 
