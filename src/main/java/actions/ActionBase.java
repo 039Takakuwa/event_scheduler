@@ -116,6 +116,26 @@ public abstract class ActionBase {
 
     }
 
+    protected void redirect(ForwardConst action, ForwardConst command, String param)
+            throws ServletException, IOException {
+
+        // URLを構築
+        StringBuilder redirectUrl = new StringBuilder();
+        redirectUrl.append(request.getContextPath());
+        redirectUrl.append("/?action=").append(action.getValue());
+
+        if (command != null) {
+            redirectUrl.append("&command=").append(command.getValue());
+        }
+
+        if (param != null && !param.isEmpty()) {
+            redirectUrl.append("&").append(param);
+        }
+
+        // URLへリダイレクト
+        response.sendRedirect(redirectUrl.toString());
+    }
+
     /**
      * CSRF対策 token不正の場合はエラー画面を表示
      * @return true: token有効 false: token不正
@@ -204,7 +224,7 @@ public abstract class ActionBase {
     protected <V> void putRequestScope(AttributeConst key, V value) {
         request.setAttribute(key.getValue(), value);
     }
-    
+
     protected void putRequestScope(String key, Object value) {
         request.setAttribute(key, value);
     }

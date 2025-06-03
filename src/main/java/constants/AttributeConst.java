@@ -31,11 +31,22 @@ public enum AttributeConst {
     //イベント関連
     EVENTS("events"),             // イベント一覧
     EVENT("event"),               // 単一イベント
-    EVENT_ID("id"),
+    EVENT_ID("event_id"),
     EVENT_TITLE("title"),         // イベントタイトル
     EVENT_DESCRIPTION("description"), // イベント説明
     EVENT_ORGANIZER_ID("organizerId"), // イベント主催者ID
-    EVENT_LIST("event_list");
+    EVENT_LIST("event_list"),
+    
+    // イベント候補関連
+    CANDIDATE("candidate"),                      // 単一候補
+    CANDIDATES("candidates"),                    // 候補一覧
+    CANDIDATE_ID("id"),
+    CANDIDATE_EVENT("event"),                    // 所属イベント（EventView）
+    CANDIDATE_DATE("date"),                      // 候補日付
+    CANDIDATE_START_TIME("start_time"),          // 開始時刻
+    CANDIDATE_END_TIME("end_time"),              // 終了時刻
+    CANDIDATE_LIST("candidate_list");
+
 
     private final String text;
     private final Integer i;

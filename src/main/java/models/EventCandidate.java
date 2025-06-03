@@ -10,12 +10,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+@NamedQueries({
+    @NamedQuery(
+        name = "EventCandidate.getByEvent",
+        query = "SELECT ec FROM EventCandidate ec WHERE ec.event = :event ORDER BY ec.date ASC, ec.startTime ASC"
+    )
+})
 
 @Entity
 @Table(name = "event_candidates")
