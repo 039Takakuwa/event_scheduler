@@ -7,6 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +20,12 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "events")
+@NamedQueries({
+    @NamedQuery(
+        name = "Event.getAll",
+        query = "SELECT e FROM Event e ORDER BY e.id DESC"
+    )
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,8 +41,9 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "organizer_id", nullable = false)
-    private Integer organizerId;
+    @ManyToOne
+    @JoinColumn(name = "organizer_id", nullable = false)
+    private User organizer;
 
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;

@@ -10,6 +10,7 @@ public enum ForwardConst {
     ACT("action"),
     ACT_USR("User"),
     ACT_LOG("Log"),
+    ACT_EVENT("Event"),
 
     //command
     CMD("command"),
@@ -31,7 +32,13 @@ public enum ForwardConst {
     FW_USER_SHOW("users/show"),
     FW_USER_NEW("users/new"),
     FW_USER_EDIT("users/edit"),
-    FW_LOGIN("login/show");
+    FW_LOGIN("login/show"),
+    
+    // 遷移先jsp
+    FW_EVENT_INDEX("events/index"),
+    FW_EVENT_SHOW("events/show"),
+    FW_EVENT_NEW("events/new"),
+    FW_EVENT_EDIT("events/edit");
 
     
     /**

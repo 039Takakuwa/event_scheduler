@@ -14,6 +14,7 @@ public enum AttributeConst {
     PAGE("page"),
 
     //入力フォーム共通
+    ID("id"),
     TOKEN("_token"),
     ERR("errors"),
 
@@ -25,8 +26,15 @@ public enum AttributeConst {
     USER_NAME("username"),
     USER_EMAIL("email"),
     USER_PASSWORD("password"),
-    LOGIN_USER("login_user");
-
+    LOGIN_USER("login_user"),
+    
+    //イベント関連
+    EVENTS("events"),             // イベント一覧
+    EVENT("event"),               // 単一イベント
+    EVENT_TITLE("title"),         // イベントタイトル
+    EVENT_DESCRIPTION("description"), // イベント説明
+    EVENT_ORGANIZER_ID("organizerId"), // イベント主催者ID
+    EVENT_LIST("event_list");
 
     private final String text;
     private final Integer i;
