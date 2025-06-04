@@ -42,11 +42,12 @@ public enum AttributeConst {
     CANDIDATES("candidates"),                    // 候補一覧
     CANDIDATE_ID("id"),
     CANDIDATE_EVENT("event"),                    // 所属イベント（EventView）
-    CANDIDATE_DATE("date"),                      // 候補日付
-    CANDIDATE_START_TIME("start_time"),          // 開始時刻
-    CANDIDATE_END_TIME("end_time"),              // 終了時刻
-    CANDIDATE_LIST("candidate_list");
+    CANDIDATE_DATE("candidate_date"),                      // 候補日付
+    CANDIDATE_START_TIME("candidate_start_time"),          // 開始時刻
+    CANDIDATE_END_TIME("candidate_end_time"),              // 終了時刻
+    CANDIDATE_LIST("candidate_list"),
 
+    CMD("command");
 
     private final String text;
     private final Integer i;

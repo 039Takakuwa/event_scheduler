@@ -18,12 +18,16 @@ public class UserAction extends ActionBase {
 
     @Override
     public void process() throws ServletException, IOException {
-        if (getSessionScope(AttributeConst.LOGIN_USER) == null) {
-            redirect(ForwardConst.ACT_LOG, ForwardConst.CMD_SHOW);
-            return;
-        }
-
         service = new UserService();
+        
+        String command = getRequestParam(AttributeConst.CMD);
+        if (!(ForwardConst.CMD_NEW.getValue().equals(command) || ForwardConst.CMD_CREATE.getValue().equals(command))) {
+            if (getSessionScope(AttributeConst.LOGIN_USER) == null) {
+                redirect(ForwardConst.ACT_LOG, ForwardConst.CMD_SHOW);
+                service.close();
+                return;
+            }
+        }
 
         // コマンドを実行
         invoke();

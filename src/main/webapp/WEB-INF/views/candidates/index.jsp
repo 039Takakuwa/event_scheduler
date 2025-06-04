@@ -6,7 +6,7 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>イベントid${event.id}のイベント候補日一覧</h2>
+        <h2>イベントid${event.id}の候補日一覧</h2>
 
         <c:if test="${not empty flush}">
             <div id="flush_success">
@@ -28,7 +28,7 @@
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${candidate.date}" /></td>
                         <td><c:out value="${candidate.startTime}" /></td>
-                        <td><fmt:formatDate value="${candidate.endTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+                        <td><c:out value="${candidate.endTime}"/></td>
                         <td>
                             <a href="<c:url value='?action=${actCnd}&command=${commShow}&id=${candidate.id}' />">詳細</a>
                         </td>

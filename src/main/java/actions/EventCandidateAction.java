@@ -35,7 +35,7 @@ public class EventCandidateAction extends ActionBase {
      */
     public void index() throws ServletException, IOException {
         System.out.println("EventCandidateAction#index start");
-        
+
         Integer eventId = toNumber(getRequestParam(AttributeConst.EVENT_ID));
         System.out.println("eventId = " + eventId);
 
@@ -81,22 +81,39 @@ public class EventCandidateAction extends ActionBase {
      * 候補日時の登録
      */
     public void create() throws ServletException, IOException {
-        EventView event = eventService.findOne(toNumber(getRequestParam(AttributeConst.EVENT_ID)));
+        String rawEventId = getRequestParam(AttributeConst.EVENT_ID);
+        System.out.println("【DEBUG】raw event_id param = " + rawEventId);
 
-        EventCandidateView evc = new EventCandidateView(
-                null,
-                event,
-                Date.valueOf(getRequestParam(AttributeConst.CANDIDATE_DATE)),
-                Time.valueOf(getRequestParam(AttributeConst.CANDIDATE_START_TIME)),
-                Time.valueOf(getRequestParam(AttributeConst.CANDIDATE_END_TIME))
-        );
+        Integer parsedEventId = toNumber(rawEventId);
+        System.out.println("【DEBUG】parsed event_id = " + parsedEventId);
 
-        candidateService.create(evc);
+        EventView event = eventService.findOne(parsedEventId);
+        System.out.println("【DEBUG】fetched event = " + event);
+        //        EventView event = eventService.findOne(toNumber(getRequestParam(AttributeConst.EVENT_ID)));
 
-        putSessionScope(AttributeConst.FLUSH, "候補日時を登録しました。");
+        System.out.println("candidate_date: " + getRequestParam(AttributeConst.CANDIDATE_DATE));
+        System.out.println("start_time: " + getRequestParam(AttributeConst.CANDIDATE_START_TIME));
+        System.out.println("end_time: " + getRequestParam(AttributeConst.CANDIDATE_END_TIME));
 
-        redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "?id=" + event.getId());
+        String dateStr = getRequestParam(AttributeConst.CANDIDATE_DATE);
+        String startStr = getRequestParam(AttributeConst.CANDIDATE_START_TIME);
+        String endStr = getRequestParam(AttributeConst.CANDIDATE_END_TIME);
 
+        try {
+            Date date = Date.valueOf(dateStr);
+            Time start = Time.valueOf(startStr + ":00");
+            Time end = Time.valueOf(endStr + ":00");
+
+            EventCandidateView evc = new EventCandidateView(null, event, date, start, end);
+            candidateService.create(evc);
+            putSessionScope(AttributeConst.FLUSH, "候補日時を登録しました。");
+            redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "&event_id=" + event.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            putRequestScope(AttributeConst.ERR, List.of("日付または時間の形式が正しくありません"));
+            putRequestScope(AttributeConst.EVENT, event);
+            forward(ForwardConst.FW_CANDIDATE_NEW);
+        }
     }
 
     /**
