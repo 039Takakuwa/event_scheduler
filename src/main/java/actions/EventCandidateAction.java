@@ -127,6 +127,11 @@ public class EventCandidateAction extends ActionBase {
 
         putSessionScope(AttributeConst.FLUSH, "候補日時を削除しました。");
 
-        redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "?id=" + event.getId());
+        String redirectUrl = "?action=" + ForwardConst.ACT_CANDIDATE.getValue()
+        + "&command=" + ForwardConst.CMD_INDEX.getValue()
+        + "&event_id=" + event.getId();
+System.out.println("リダイレクト先URL: " + redirectUrl);
+        
+        redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "&event_id=" + event.getId());
     }
 }
