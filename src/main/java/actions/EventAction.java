@@ -6,10 +6,12 @@ import java.util.List;
 
 import jakarta.servlet.ServletException;
 
+import actions.views.EventCandidateView;
 import actions.views.EventView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
+import services.EventCandidateService;
 import services.EventService;
 
 public class EventAction extends ActionBase {
@@ -85,6 +87,12 @@ public class EventAction extends ActionBase {
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
+        
+        // 候補一覧を取得してリクエストスコープに格納
+        List<EventCandidateView> candidates = new EventCandidateService().getCandidatesByEvent(ev);
+        System.out.println("候補日件数: " + candidates.size());
+
+        putRequestScope(AttributeConst.CANDIDATE_LIST, candidates);
 
         putRequestScope(AttributeConst.EVENT, ev);
         forward(ForwardConst.FW_EVENT_SHOW);
