@@ -7,7 +7,9 @@ import jakarta.persistence.EntityManager;
 import actions.views.EventConverter;
 import actions.views.EventView;
 import actions.views.UserConverter;
+import models.Attendance;
 import models.Event;
+import models.EventCandidate;
 import utils.DBUtil;
 
 public class EventService {
@@ -62,15 +64,42 @@ public class EventService {
     /**
      * イベントを削除（論理削除に対応するならdeleteFlagを設定）
      */
-    public void delete(int id) {
+    public void delete(int eventId) {
         em.getTransaction().begin();
-        Event e = em.find(Event.class, id);
-        if (e != null) {
-            // ここに deleteFlag を立てる処理があれば書く（例：e.setDeleteFlag(1);）
-            em.remove(e); // 完全削除（開発用）
+
+        Event event = em.find(Event.class, eventId);
+        if (event != null) {
+
+            // 1. Eventにぶら下がっているEventCandidateをすべて取得
+            List<EventCandidate> candidates = em.createQuery(
+                "SELECT ec FROM EventCandidate ec WHERE ec.event = :event", EventCandidate.class)
+                .setParameter("event", event)
+                .getResultList();
+
+            for (EventCandidate ec : candidates) {
+                // 1-1. Attendanceも削除
+                List<Attendance> attendances = em.createQuery(
+                    "SELECT a FROM Attendance a WHERE a.candidate = :candidate", Attendance.class)
+                    .setParameter("candidate", ec)
+                    .getResultList();
+
+                for (Attendance a : attendances) {
+                    em.remove(a);
+                }
+
+                em.remove(ec);
+            }
+
+            // 2. Event削除（これで初めて通るようになる）
+            System.out.println("[DEBUG] Deleting event: " + event.getTitle());
+            em.remove(event);
+        } else {
+            System.out.println("[DEBUG] event not found for ID: " + eventId);
         }
+
         em.getTransaction().commit();
     }
+
 
     /**
      * EntityManagerのクローズ

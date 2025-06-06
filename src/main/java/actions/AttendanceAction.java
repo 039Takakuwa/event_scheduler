@@ -1,16 +1,21 @@
 package actions;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 
 import actions.views.AttendanceView;
 import actions.views.EventCandidateView;
+import actions.views.EventView;
 import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import services.AttendanceService;
 import services.EventCandidateService;
+import services.EventService;
+import services.UserService;
 
 public class AttendanceAction extends ActionBase {
 
@@ -64,4 +69,20 @@ public class AttendanceAction extends ActionBase {
         redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_SHOW,
                  String.format("id=%d", candidate.getEvent().getId()));
     }
+    
+    public void summary() throws ServletException, IOException {
+        Integer eventId = toNumber(getRequestParam(AttributeConst.EVENT_ID));
+        EventView event = new EventService().findOne(eventId);
+        List<EventCandidateView> candidateList = new EventCandidateService().getCandidatesByEvent(event);
+
+        List<UserView> allUsers = new UserService().getAllUsers(); // 参加者リスト（全ユーザーならこれ）
+
+        // 候補ごとの出欠データを収集
+        Map<EventCandidateView, Map<String, List<UserView>>> summary = service.buildAttendanceSummary(candidateList, allUsers);
+
+        putRequestScope(AttributeConst.EVENT, event);
+        putRequestScope("attendance_summary", summary);
+        forward(ForwardConst.FW_ATTENDANCE_SUMMARY);
+    }
+
 }

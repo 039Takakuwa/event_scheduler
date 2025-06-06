@@ -54,6 +54,10 @@ public enum AttributeConst {
     ATTENDANCE_USER("user"),                     // 回答者（UserView）
     ATTENDANCE_CANDIDATE("candidate"),           // 候補（EventCandidateView）
     ATTENDANCE_STATUS("status"),                 // 回答内容（0: 出席、1: 未定、2: 欠席）
+    
+    ATTEND_STATUS_ATTENDING("0"),
+    ATTEND_STATUS_ABSENT("1"),
+    ATTEND_STATUS_MAYBE("2"),
 
     CMD("command");
 

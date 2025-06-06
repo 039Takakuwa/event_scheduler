@@ -99,6 +99,11 @@
                 href="<c:url value='?action=${ForwardConst.ACT_CANDIDATE.getValue()}&command=${ForwardConst.CMD_NEW.getValue()}&event_id=${event.id}' />">
                 新規候補日を追加する </a>
         </p>
+        <p>
+            <a
+                href="<c:url value='?action=Attendance&command=summary&event_id=${event.id}' />">
+                出欠集計を表示する </a>
+        </p>
 
         <script>
 function confirmCandidateDelete(id) {

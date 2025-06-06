@@ -135,7 +135,7 @@ public class EventAction extends ActionBase {
      * イベント更新処理
      */
     public void update() throws ServletException, IOException {
-        Integer id = toNumber(getRequestParam(AttributeConst.ID));
+        Integer id = toNumber(getRequestParam(AttributeConst.EVENT_ID));
         EventView ev = service.findOne(id);
 
         if (ev == null) {
@@ -157,7 +157,7 @@ public class EventAction extends ActionBase {
      * イベント削除処理（完全削除）
      */
     public void destroy() throws ServletException, IOException {
-        Integer id = toNumber(getRequestParam(AttributeConst.ID));
+        Integer id = toNumber(getRequestParam(AttributeConst.EVENT_ID));
         service.delete(id);
 
         putSessionScope(AttributeConst.FLUSH, "イベントを削除しました。");

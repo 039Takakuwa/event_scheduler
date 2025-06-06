@@ -52,7 +52,8 @@ public enum ForwardConst {
 
  // 出欠確認jsp
     FW_ATTENDANCE_NEW("attendances/new"),   // アンケート画面
-    FW_ATTENDANCE_INDEX("attendances/index");
+    FW_ATTENDANCE_INDEX("attendances/index"),
+    FW_ATTENDANCE_SUMMARY("attendances/summary");
     
     /**
      * 文字列

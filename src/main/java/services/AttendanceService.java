@@ -1,5 +1,7 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,5 +65,33 @@ public class AttendanceService extends ServiceBase {
         }
         return map;
     }
+    
+    public Map<EventCandidateView, Map<String, List<UserView>>> buildAttendanceSummary(
+            List<EventCandidateView> candidates, List<UserView> allUsers) {
 
+        Map<EventCandidateView, Map<String, List<UserView>>> result = new LinkedHashMap<>();
+
+        for (EventCandidateView candidate : candidates) {
+            Map<String, List<UserView>> map = new HashMap<>();
+            map.put("attending", new ArrayList<>());
+            map.put("absent", new ArrayList<>());
+            map.put("not_responded", new ArrayList<>(allUsers)); // 全員未回答で初期化
+
+            List<AttendanceView> responses = getAttendancesForCandidate(candidate); // 各候補への出欠一覧
+
+            for (AttendanceView attendance : responses) {
+                UserView user = attendance.getUser();
+                map.get("not_responded").remove(user); // 回答済みなら削除
+                if (attendance.getStatus() == 0) {
+                    map.get("attending").add(user);
+                } else if (attendance.getStatus() == 1) {
+                    map.get("absent").add(user);
+                }
+            }
+
+            result.put(candidate, map);
+        }
+
+        return result;
+    }
 }
