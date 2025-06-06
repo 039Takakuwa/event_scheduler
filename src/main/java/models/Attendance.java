@@ -17,14 +17,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NamedQueries({
-    @NamedQuery(
-        name = "getMyAttendanceForCandidate",
-        query = "SELECT a FROM Attendance a WHERE a.user = :user AND a.candidate = :candidate"
-    ),
-    @NamedQuery(
-        name = "getAttendancesForCandidate",
-        query = "SELECT a FROM Attendance a WHERE a.candidate = :candidate"
-    )
+        @NamedQuery(name = "getMyAttendanceForCandidate", query = "SELECT a FROM Attendance a WHERE a.user = :user AND a.candidate = :candidate"),
+        @NamedQuery(name = "getAttendancesForCandidate", query = "SELECT a FROM Attendance a WHERE a.candidate = :candidate"),
+        @NamedQuery(name = "getAttendancesByUser", query = "SELECT a FROM Attendance a WHERE a.user = :user")
 })
 @Entity
 @Table(name = "attendances")

@@ -12,10 +12,12 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @NamedQueries({
         @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User AS u ORDER BY u.id DESC"),

@@ -23,6 +23,8 @@
                 value="mesuser" />
             <property name="jakarta.persistence.jdbc.password"
                 value="mespass" />
+            <property name="jakarta.persistence.jdbc.show_sql"
+                value="true" />
 
 
             <!-- Hibernate 6.x では MySQLDialect を使用 -->
