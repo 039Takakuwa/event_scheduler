@@ -61,4 +61,10 @@ public class EventCandidateService {
             em.close();
         }
     }
+    
+    // 主キーから候補日データ1件を取得してViewに変換して返す
+    public EventCandidateView findOne(int id) {
+        EventCandidate ec = em.find(EventCandidate.class, id);
+        return EventCandidateConverter.toView(ec);
+    }
 }

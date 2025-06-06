@@ -5,18 +5,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "attendances", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "user_id", "event_id", "candidate_id" })
+@NamedQueries({
+    @NamedQuery(
+        name = "getMyAttendanceForCandidate",
+        query = "SELECT a FROM Attendance a WHERE a.user = :user AND a.candidate = :candidate"
+    ),
+    @NamedQuery(
+        name = "getAttendancesForCandidate",
+        query = "SELECT a FROM Attendance a WHERE a.candidate = :candidate"
+    )
 })
+@Entity
+@Table(name = "attendances")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,18 +37,14 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "event_id", nullable = false)
-    private Integer eventId;
+    @ManyToOne
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private EventCandidate candidate;
 
-    @Column(name = "candidate_id", nullable = false)
-    private Integer candidateId;
-
-    @Column(nullable = false)
-    private String status; // yes / maybe / no
-
-    @Column(columnDefinition = "TEXT")
-    private String comment;
+    @Column(name = "status", nullable = false)
+    private Integer status; // yes / maybe / no
 }

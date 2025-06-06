@@ -14,6 +14,12 @@
 
         <h2>id : ${event.id} のイベント情報 詳細ページ</h2>
 
+        <c:if test="${not empty flush}">
+            <div id="flush_success">
+                <c:out value="${flush}" />
+            </div>
+        </c:if>
+
         <table>
             <tbody>
                 <tr>
@@ -55,7 +61,10 @@
                             <td><c:out value="${candidate.startTime}" /></td>
                             <td><c:out value="${candidate.endTime}" /></td>
                             <td><a href="#"
-                                onclick="confirmCandidateDelete(${candidate.id}); return false;">削除</a>
+                                onclick="confirmCandidateDelete(${candidate.id}); return false;">削除</a><br>
+                                <a
+                                href="<c:url value='?action=Attendance&command=newAttendance&id=${candidate.id}' />">
+                                    出欠回答 </a>
 
                                 <form id="deleteForm_${candidate.id}" method="POST"
                                     action="<c:url value='?action=${ForwardConst.ACT_CANDIDATE.getValue()}&command=${ForwardConst.CMD_DESTROY.getValue()}' />">

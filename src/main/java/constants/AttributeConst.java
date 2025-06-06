@@ -46,6 +46,14 @@ public enum AttributeConst {
     CANDIDATE_START_TIME("candidate_start_time"),          // 開始時刻
     CANDIDATE_END_TIME("candidate_end_time"),              // 終了時刻
     CANDIDATE_LIST("candidate_list"),
+    
+    // 出欠確認関連
+    ATTENDANCE("attendance"),                    // 単一の出欠
+    ATTENDANCES("attendances"),                  // 出欠一覧
+    ATTENDANCE_ID("id"),
+    ATTENDANCE_USER("user"),                     // 回答者（UserView）
+    ATTENDANCE_CANDIDATE("candidate"),           // 候補（EventCandidateView）
+    ATTENDANCE_STATUS("status"),                 // 回答内容（0: 出席、1: 未定、2: 欠席）
 
     CMD("command");
 

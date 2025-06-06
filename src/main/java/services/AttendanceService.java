@@ -1,0 +1,55 @@
+package services;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import jakarta.persistence.NoResultException;
+
+import actions.views.AttendanceConverter;
+import actions.views.AttendanceView;
+import actions.views.EventCandidateConverter;
+import actions.views.EventCandidateView;
+import actions.views.UserConverter;
+import actions.views.UserView;
+import models.Attendance;
+
+public class AttendanceService extends ServiceBase {
+
+    // 出欠の作成
+    public void create(AttendanceView av) {
+        em.getTransaction().begin();
+        em.persist(AttendanceConverter.toModel(av));
+        em.getTransaction().commit();
+    }
+
+    // 出欠の更新
+    public void update(AttendanceView av) {
+        em.getTransaction().begin();
+        Attendance a = em.find(Attendance.class, av.getId());
+        a.setStatus(av.getStatus());
+        em.getTransaction().commit();
+    }
+
+    // 特定候補に対するすべての出欠情報を取得
+    public List<AttendanceView> getAttendancesForCandidate(EventCandidateView candidate) {
+        List<Attendance> attendances = em.createNamedQuery("getAttendancesForCandidate", Attendance.class)
+            .setParameter("candidate", EventCandidateConverter.toModel(candidate))
+            .getResultList();
+        return attendances.stream()
+            .map(AttendanceConverter::toView)
+            .collect(Collectors.toList());
+    }
+
+    // 特定ユーザーと候補に対する出欠を1件取得
+    public AttendanceView getMyAttendanceForCandidate(UserView user, EventCandidateView candidate) {
+        try {
+            Attendance attendance = em.createNamedQuery("getMyAttendanceForCandidate", Attendance.class)
+                .setParameter("user", UserConverter.toModel(user))
+                .setParameter("candidate", EventCandidateConverter.toModel(candidate))
+                .getSingleResult();
+            return AttendanceConverter.toView(attendance);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+}

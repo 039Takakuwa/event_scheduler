@@ -12,6 +12,7 @@ public enum ForwardConst {
     ACT_LOG("Log"),
     ACT_EVENT("Event"),
     ACT_CANDIDATE("EventCandidate"),             // 候補管理用アクション名
+    ACT_ATTENDANCE("Attendance"),
 
     //command
     CMD("command"),
@@ -47,8 +48,11 @@ public enum ForwardConst {
     FW_CANDIDATE_INDEX("candidates/index"),
     FW_CANDIDATE_SHOW("candidates/show"),
     FW_CANDIDATE_NEW("candidates/new"),
-    FW_CANDIDATE_EDIT("candidates/edit");
+    FW_CANDIDATE_EDIT("candidates/edit"),
 
+ // 出欠確認jsp
+    FW_ATTENDANCE_NEW("attendances/new"),   // アンケート画面
+    FW_ATTENDANCE_INDEX("attendances/index");
     
     /**
      * 文字列
