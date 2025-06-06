@@ -1,6 +1,8 @@
 package services;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import jakarta.persistence.NoResultException;
@@ -52,4 +54,14 @@ public class AttendanceService extends ServiceBase {
             return null;
         }
     }
+    
+    public Map<EventCandidateView, AttendanceView> getMyAttendancesMap(UserView user, List<EventCandidateView> candidates) {
+        Map<EventCandidateView, AttendanceView> map = new LinkedHashMap<>();
+        for (EventCandidateView candidate : candidates) {
+            AttendanceView att = getMyAttendanceForCandidate(user, candidate);
+            map.put(candidate, att);
+        }
+        return map;
+    }
+
 }

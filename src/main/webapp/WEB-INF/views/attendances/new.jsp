@@ -18,8 +18,8 @@
 
       <p>出欠の選択：</p>
       <label><input type="radio" name="${AttributeConst.ATTENDANCE_STATUS.getValue()}" value="0" /> 出席</label><br />
-      <label><input type="radio" name="${AttributeConst.ATTENDANCE_STATUS.getValue()}" value="1" /> 未定</label><br />
-      <label><input type="radio" name="${AttributeConst.ATTENDANCE_STATUS.getValue()}" value="2" /> 欠席</label><br />
+      <label><input type="radio" name="${AttributeConst.ATTENDANCE_STATUS.getValue()}" value="1" /> 欠席</label><br />
+      <label><input type="radio" name="${AttributeConst.ATTENDANCE_STATUS.getValue()}" value="2" /> 未定</label><br />
 
       <p><button type="submit">回答する</button></p>
     </form>

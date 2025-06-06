@@ -50,6 +50,7 @@
                         <th>日付</th>
                         <th>開始時刻</th>
                         <th>終了時刻</th>
+                        <th>自分の回答</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -60,6 +61,17 @@
                             <td><c:out value="${candidate.date}" /></td>
                             <td><c:out value="${candidate.startTime}" /></td>
                             <td><c:out value="${candidate.endTime}" /></td>
+                            <td><c:choose>
+                                    <c:when test="${not empty my_attendances[candidate]}">
+                                        <c:choose>
+                                            <c:when test="${my_attendances[candidate].status == 0}">出席</c:when>
+                                            <c:when test="${my_attendances[candidate].status == 1}">欠席</c:when>
+                                            <c:when test="${my_attendances[candidate].status == 2}">未定</c:when>
+                                            <c:otherwise>未設定</c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:otherwise>未回答</c:otherwise>
+                                </c:choose></td>
                             <td><a href="#"
                                 onclick="confirmCandidateDelete(${candidate.id}); return false;">削除</a><br>
                                 <a

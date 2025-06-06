@@ -107,7 +107,8 @@ public class EventCandidateAction extends ActionBase {
             EventCandidateView evc = new EventCandidateView(null, event, date, start, end);
             candidateService.create(evc);
             putSessionScope(AttributeConst.FLUSH, "候補日時を登録しました。");
-            redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "&event_id=" + event.getId());
+            redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_SHOW,
+                    String.format("id=%d", evc.getEvent().getId()));
         } catch (Exception e) {
             e.printStackTrace();
             putRequestScope(AttributeConst.ERR, List.of("日付または時間の形式が正しくありません"));
@@ -128,10 +129,10 @@ public class EventCandidateAction extends ActionBase {
         putSessionScope(AttributeConst.FLUSH, "候補日時を削除しました。");
 
         String redirectUrl = "?action=" + ForwardConst.ACT_CANDIDATE.getValue()
-        + "&command=" + ForwardConst.CMD_INDEX.getValue()
-        + "&event_id=" + event.getId();
-System.out.println("リダイレクト先URL: " + redirectUrl);
-        
+                + "&command=" + ForwardConst.CMD_INDEX.getValue()
+                + "&event_id=" + event.getId();
+        System.out.println("リダイレクト先URL: " + redirectUrl);
+
         redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "&event_id=" + event.getId());
     }
 }

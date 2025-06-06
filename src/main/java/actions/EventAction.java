@@ -3,14 +3,18 @@ package actions;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 
+import actions.views.AttendanceView;
 import actions.views.EventCandidateView;
 import actions.views.EventView;
+import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
+import services.AttendanceService;
 import services.EventCandidateService;
 import services.EventService;
 
@@ -73,7 +77,7 @@ public class EventAction extends ActionBase {
         service.create(ev);
 
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
-        
+
         redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_INDEX);
     }
 
@@ -87,12 +91,24 @@ public class EventAction extends ActionBase {
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
-        
+
         // 候補一覧を取得してリクエストスコープに格納
         List<EventCandidateView> candidates = new EventCandidateService().getCandidatesByEvent(ev);
         System.out.println("候補日件数: " + candidates.size());
 
         putRequestScope(AttributeConst.CANDIDATE_LIST, candidates);
+
+        UserView loginUser = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+        
+        AttendanceService attendanceService = new AttendanceService();
+
+        // 出席情報を取得（候補ごとの自分の回答）
+        Map<EventCandidateView, AttendanceView> myAttendances = attendanceService.getMyAttendancesMap(loginUser,
+                candidates);
+
+        putRequestScope("my_attendances", myAttendances);
+        
+        attendanceService.close();
 
         putRequestScope(AttributeConst.EVENT, ev);
         forward(ForwardConst.FW_EVENT_SHOW);
