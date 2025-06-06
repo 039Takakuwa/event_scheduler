@@ -75,14 +75,49 @@ public class AttendanceAction extends ActionBase {
         EventView event = new EventService().findOne(eventId);
         List<EventCandidateView> candidateList = new EventCandidateService().getCandidatesByEvent(event);
 
-        List<UserView> allUsers = new UserService().getAllUsers(); // 参加者リスト（全ユーザーならこれ）
+        List<UserView> allUsers = new UserService().getAllUsers(); // 参加者リスト（全ユーザー）
 
-        // 候補ごとの出欠データを収集
-        Map<EventCandidateView, Map<String, List<UserView>>> summary = service.buildAttendanceSummary(candidateList, allUsers);
+        // 出欠サマリ生成
+        Map<EventCandidateView, Map<String, List<UserView>>> summary =
+                service.buildAttendanceSummary(candidateList, allUsers);
 
+        // 出席最多の候補日IDを求める
+        Integer maxAttendanceCandidateId = null;
+        int maxAttendingCount = -1;
+
+        for (Map.Entry<EventCandidateView, Map<String, List<UserView>>> entry : summary.entrySet()) {
+            List<UserView> attending = entry.getValue().get("attending");
+            if (attending != null && attending.size() > maxAttendingCount) {
+                maxAttendingCount = attending.size();
+                maxAttendanceCandidateId = entry.getKey().getId();
+            }
+        }
+
+        // 合計値計算
+        int totalAttending = 0;
+        int totalAbsent = 0;
+        int totalNotResponded = 0;
+
+        for (Map<String, List<UserView>> statusMap : summary.values()) {
+            totalAttending += statusMap.getOrDefault("attending", List.of()).size();
+            totalAbsent += statusMap.getOrDefault("absent", List.of()).size();
+            totalNotResponded += statusMap.getOrDefault("not_responded", List.of()).size();
+        }
+
+        Map<String, Integer> summaryTotals = Map.of(
+            "attending", totalAttending,
+            "absent", totalAbsent,
+            "notResponded", totalNotResponded
+        );
+
+        // JSPに渡す
         putRequestScope(AttributeConst.EVENT, event);
         putRequestScope("attendance_summary", summary);
+        putRequestScope("maxAttendanceCandidateId", maxAttendanceCandidateId);
+        putRequestScope("summaryTotals", summaryTotals);
+
         forward(ForwardConst.FW_ATTENDANCE_SUMMARY);
     }
+
 
 }
