@@ -4,41 +4,46 @@
 <%@ page import="constants.AttributeConst"%>
 <%@ page import="constants.ForwardConst"%>
 
-<c:set var="action" value="${ForwardConst.ACT_USR.getValue()}" />
-<c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
+<c:set var="actUsr" value="${ForwardConst.ACT_USR.getValue()}" />
 
 <c:if test="${errors != null}">
-    <div id="flush_error">
-        入力内容にエラーがあります。<br />
-        <c:forEach var="error" items="${errors}">
-            ・<c:out value="${error}" />
-            <br />
-        </c:forEach>
-
-    </div>
+  <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+    <p class="font-semibold mb-2">入力内容にエラーがあります。</p>
+    <ul class="list-disc list-inside text-sm">
+      <c:forEach var="error" items="${errors}">
+        <li><c:out value="${error}" /></li>
+      </c:forEach>
+    </ul>
+  </div>
 </c:if>
-<form method="POST"
-    action="<c:url value='?action=${actUsr}&command=${commCreate}' />">
-    <table>
-        <tr>
-            <th>ユーザー名</th>
-            <td><input type="text" name="username"
-                value="${user.username != null ? user.username : ''}" /></td>
-        </tr>
-        <tr>
-            <th>メールアドレス</th>
-            <td><input type="email" name="email"
-                value="${user.email != null ? user.email : ''}" /></td>
-        </tr>
-        <tr>
-            <th>パスワード</th>
-            <td><input type="password" name="password" /></td>
-        </tr>
-    </table>
 
-    <p>
-        <input type="submit" value="登録" />
-    </p>
-    <input type="hidden" name="${AttributeConst.USER_ID.getValue()}"
-        value="${user.id}" />
-</form>
+<div class="space-y-4">
+  <div>
+    <label for="username" class="block text-sm font-medium text-gray-700">ユーザー名</label>
+    <input type="text" name="username" id="username"
+           value="${user.username != null ? user.username : ''}"
+           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+  </div>
+
+  <div>
+    <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+    <input type="email" name="email" id="email"
+           value="${user.email != null ? user.email : ''}"
+           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+  </div>
+
+  <div>
+    <label for="password" class="block text-sm font-medium text-gray-700">パスワード</label>
+    <input type="password" name="password" id="password"
+           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+  </div>
+
+  <input type="hidden" name="${AttributeConst.USER_ID.getValue()}" value="${user.id}" />
+
+  <div class="pt-4">
+    <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md transition duration-300">
+      登録
+    </button>
+  </div>
+</div>

@@ -128,7 +128,12 @@ public class UserAction extends ActionBase {
 
         uv.setUsername(getRequestParam(AttributeConst.USER_NAME));
         uv.setEmail(getRequestParam(AttributeConst.USER_EMAIL));
-        uv.setPassword_hash(getRequestParam(AttributeConst.USER_PASSWORD));
+
+        // パスワードが空でない場合のみ更新
+        String password = getRequestParam(AttributeConst.USER_PASSWORD);
+        if (password != null && !password.isEmpty()) {
+            uv.setPassword_hash(password);
+        }
 
         service.update(uv);
         redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
