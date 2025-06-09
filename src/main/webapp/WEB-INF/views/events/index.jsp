@@ -38,7 +38,7 @@ if (flush != null) {
             <table class="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead class="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
                     <tr>
-                        <th class="text-left px-8 py-4 font-semibold tracking-wide">ID</th>
+                        <th class="text-left px-8 py-4 font-semibold tracking-wide">イベント番号</th>
                         <th class="text-left px-8 py-4 font-semibold tracking-wide">タイトル</th>
                         <th class="text-left px-8 py-4 font-semibold tracking-wide">説明</th>
                         <th class="text-left px-8 py-4 font-semibold tracking-wide">作成者</th>
