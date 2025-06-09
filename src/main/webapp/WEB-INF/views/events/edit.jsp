@@ -9,31 +9,44 @@
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
-    <c:param name="content">
+  <c:param name="content">
 
-        <h2>id : ${event.id} の従業員情報 編集ページ</h2>
+    <div class="max-w-xl mx-auto mt-10 bg-white p-8 rounded-lg shadow">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+        ID: ${event.id} のイベント情報 編集
+      </h2>
+
+      <form method="POST" action="<c:url value='?action=${actEvn}&command=${commUpd}' />" class="space-y-6">
+        <c:import url="_form.jsp" />
+      </form>
+
+      <div class="mt-6">
+        <button onclick="confirmDestroy();"
+                class="w-full text-red-600 hover:underline text-center font-medium">
+          このイベントを削除する
+        </button>
         <form method="POST"
-            action="<c:url value='?action=${actEvn}&command=${commUpd}' />">
-            <c:import url="_form.jsp" />
+              action="<c:url value='?action=${actEvn}&command=${commDel}' />"
+              id="deleteForm">
+          <input type="hidden" name="${AttributeConst.EVENT_ID.getValue()}" value="${event.id}" />
         </form>
+      </div>
 
-        <p>
-            <a href="#" onclick="confirmDestroy();">このイベントを削除する</a>
-        </p>
-        <form method="POST"
-            action="<c:url value='?action=${actEvn}&command=${commDel}' />">
-            <input type="hidden" name="${AttributeConst.EVENT_ID.getValue()}" value="${event.id}" />
-        </form>
-        <script>
-            function confirmDestroy() {
-                if (confirm("本当に削除してよろしいですか？")) {
-                    document.forms[1].submit();
-                }
-            }
-        </script>
+      <div class="mt-6 text-center">
+        <a href="<c:url value='?action=${actEvn}&command=${commIdx}' />"
+           class="text-blue-600 hover:underline font-medium">
+          一覧に戻る
+        </a>
+      </div>
+    </div>
 
-        <p>
-            <a href="<c:url value='?action=${actEvn}&command=${commIdx}' />">一覧に戻る</a>
-        </p>
-    </c:param>
+    <script>
+      function confirmDestroy() {
+        if (confirm("本当に削除してよろしいですか？")) {
+          document.getElementById("deleteForm").submit();
+        }
+      }
+    </script>
+
+  </c:param>
 </c:import>

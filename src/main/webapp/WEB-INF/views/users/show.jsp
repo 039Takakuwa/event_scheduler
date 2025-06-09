@@ -28,7 +28,7 @@
         <div class="flex justify-between">
           <span class="font-medium text-gray-700">登録日時</span>
           <span class="text-gray-900">
-            <fmt:formatDate value="${user.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" />
+            <fmt:formatDate value="${user.createdAt}" pattern="yyyy-MM-dd HH:mm" />
           </span>
         </div>
       </div>
