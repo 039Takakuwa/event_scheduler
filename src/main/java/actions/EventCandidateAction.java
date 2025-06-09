@@ -133,6 +133,6 @@ public class EventCandidateAction extends ActionBase {
                 + "&event_id=" + event.getId();
         System.out.println("リダイレクト先URL: " + redirectUrl);
 
-        redirect(ForwardConst.ACT_CANDIDATE, ForwardConst.CMD_INDEX, "&event_id=" + event.getId());
+        redirect(ForwardConst.ACT_EVENT, ForwardConst.CMD_SHOW, "&id=" + event.getId());
     }
 }
