@@ -5,6 +5,7 @@
 
 <c:set var="actEvn" value="${ForwardConst.ACT_EVENT.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
+<c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commUpd" value="${ForwardConst.CMD_UPDATE.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
@@ -33,9 +34,9 @@
       </div>
 
       <div class="mt-6 text-center">
-        <a href="<c:url value='?action=${actEvn}&command=${commIdx}' />"
+        <a href="<c:url value='?action=${actEvn}&command=${commShow}&id=${event.id}' />"
            class="text-blue-600 hover:underline font-medium">
-          一覧に戻る
+          イベント詳細に戻る
         </a>
       </div>
     </div>
