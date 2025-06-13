@@ -54,10 +54,12 @@ public class LogAction extends ActionBase {
             
             UserView uv = UserConverter.toView(u);
             putSessionScope(AttributeConst.LOGIN_USER, uv);
+            putSessionScope(AttributeConst.FLUSH_TYPE, "success");
             redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
         } else {
             System.out.println("ログイン失敗");
             putRequestScope(AttributeConst.FLUSH, "ユーザー名またはパスワードが違います。");
+            putSessionScope(AttributeConst.FLUSH_TYPE, "error");
             forward(ForwardConst.FW_LOGIN);
         }
     }

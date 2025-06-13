@@ -10,7 +10,7 @@
 
 <c:import url="../layout/app.jsp">
   <c:param name="content">
-
+  
     <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md mt-8">
       <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">ユーザー新規登録</h2>
 

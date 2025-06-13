@@ -8,6 +8,9 @@ public enum AttributeConst {
 
     //フラッシュメッセージ
     FLUSH("flush"),
+    FLUSH_TYPE("flushType"),
+    FLUSH_SUCCESS("success"),
+    FLUSH_ERROR("error"),
 
     //一覧画面共通
     MAX_ROW("maxRow"),

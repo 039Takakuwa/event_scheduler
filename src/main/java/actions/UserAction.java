@@ -10,6 +10,7 @@ import actions.views.UserView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
+import models.validator.UserValidator;
 import services.UserService;
 
 public class UserAction extends ActionBase {
@@ -89,10 +90,21 @@ public class UserAction extends ActionBase {
                 getRequestParam(AttributeConst.USER_EMAIL),
                 getRequestParam(AttributeConst.USER_PASSWORD),
                 now);
+        
+        List<String> errors = UserValidator.validate(uv, true);
+
+        if (errors.size() > 0) {
+            putRequestScope(AttributeConst.USER, uv);
+            putRequestScope(AttributeConst.ERR, errors);
+
+            forward(ForwardConst.FW_USER_NEW);
+            return;
+        }
 
         service.create(uv);
 
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+        putSessionScope(AttributeConst.FLUSH_TYPE, "success");
 
         redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
     }
