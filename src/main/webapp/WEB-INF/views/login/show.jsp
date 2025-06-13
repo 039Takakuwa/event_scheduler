@@ -1,10 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+String flush = (String) session.getAttribute("flush");
+if (flush != null) {
+    session.removeAttribute("flush");
+    request.setAttribute("flush", flush);
+}
+%>
+
 <c:set var="actUsr" value="${ForwardConst.ACT_USR.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
+
+        <c:if test="${not empty flush}">
+            <div id="flash-message"
+                class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 
+            bg-red-500 text-white px-6 py-3 rounded shadow-md 
+            transition-opacity duration-1500 ease-out">
+                <c:out value="${flush}" />
+            </div>
+
+        </c:if>
 
         <div class="max-w-md mx-auto mt-16 bg-white p-8 rounded-lg shadow">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">ログイン</h2>
@@ -35,12 +54,25 @@
                 </div>
             </form>
             <div class="mt-6 text-center">
-                    <a href="?action=User&command=entryNew" class="text-sm text-blue-500 hover:underline">
+                <a href="?action=User&command=entryNew"
+                    class="text-sm text-blue-500 hover:underline">
                     アカウントをお持ちでない方はこちら </a>
             </div>
         </div>
 
+        <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const flash = document.getElementById('flash-message');
+    if (!flash) return;
 
+    setTimeout(() => {
+      flash.classList.add('opacity-0');
+      setTimeout(() => {
+        flash.remove();
+      }, 1000);
+    }, 3000);
+  });
+</script>
 
     </c:param>
 </c:import>

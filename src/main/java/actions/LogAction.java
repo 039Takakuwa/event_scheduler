@@ -57,7 +57,7 @@ public class LogAction extends ActionBase {
             redirect(ForwardConst.ACT_USR, ForwardConst.CMD_INDEX);
         } else {
             System.out.println("ログイン失敗");
-            putRequestScope(AttributeConst.ERR, "ユーザー名またはパスワードが違います。");
+            putRequestScope(AttributeConst.FLUSH, "ユーザー名またはパスワードが違います。");
             forward(ForwardConst.FW_LOGIN);
         }
     }
