@@ -11,8 +11,6 @@
         <class>models.Event</class>
         <class>models.EventCandidate</class>
         <class>models.Attendance</class>
-        <class>models.Question</class>
-        <class>models.Answer</class>
         <properties>
             <!-- JPA 3.1 では `javax.persistence` ではなく `jakarta.persistence` に変更 -->
             <property name="jakarta.persistence.jdbc.driver"
